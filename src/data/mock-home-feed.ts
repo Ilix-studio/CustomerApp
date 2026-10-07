@@ -1,0 +1,101 @@
+import type { HomeFeed } from './types';
+
+/** Mock home feed with the items listed in DESIGN.md. Replace with the category/CMS API. */
+export const mockHomeFeed: HomeFeed = {
+  searchHints: ['fresh rohu fish', 'onions', 'puja samagri', 'paracetamol', 'electrician'],
+  chips: [
+    { id: 'all', label: 'All', icon: 'layout-grid' },
+    { id: 'durga-puja', label: 'Durga Puja', icon: 'flame', badge: 'NEW' },
+    { id: 'offers', label: 'Offers', icon: 'badge-percent' },
+    { id: 'electronics', label: 'Electronics', icon: 'smartphone' },
+    { id: 'beauty', label: 'Beauty', icon: 'sparkles' },
+    { id: 'decor', label: 'Decor', icon: 'lamp' },
+    { id: 'kids', label: 'Kids', icon: 'baby' },
+    { id: 'local-made', label: 'Local Made', icon: 'hand-heart' },
+  ],
+  banner: {
+    id: 'durga-puja-2026',
+    eyebrow: 'Festive special',
+    title: 'Durga Puja picks from local sellers',
+    subtitle: 'Puja samagri, new clothes, mishti',
+    ctaLabel: 'Shop',
+    target: 'durga-puja',
+  },
+  services: [
+    {
+      id: 'vegetables-livestock',
+      title: 'Vegetables & Livestock',
+      subtitle: 'Fresh from local farms',
+      icon: 'carrot',
+      tint: 'produce',
+    },
+    {
+      id: 'local-shops',
+      title: 'Local Shops',
+      subtitle: 'Kirana, bakeries & more',
+      icon: 'store',
+      tint: 'shops',
+    },
+    {
+      id: 'medicines',
+      title: 'Medicines',
+      subtitle: 'From nearby pharmacies',
+      icon: 'pill',
+      tint: 'medicines',
+    },
+    {
+      id: 'services',
+      title: 'Services',
+      subtitle: 'Electricians, tailors, repairs',
+      icon: 'wrench',
+      tint: 'services',
+    },
+  ],
+  rails: [
+    {
+      id: 'vegetables',
+      title: 'Vegetables',
+      tint: 'vegetables',
+      items: [
+        { id: 'onion', name: 'Onion', icon: 'sprout' },
+        { id: 'potato', name: 'Potato', icon: 'bean' },
+        { id: 'tomato', name: 'Tomato', icon: 'cherry' },
+        { id: 'leafy-greens', name: 'Leafy Greens', icon: 'leaf' },
+        { id: 'brinjal', name: 'Brinjal', icon: 'bean' },
+        { id: 'green-chilli', name: 'Green Chilli', icon: 'flame' },
+        { id: 'cauliflower', name: 'Cauliflower', icon: 'flower-2' },
+        { id: 'fresh-fruits', name: 'Fresh Fruits', icon: 'apple' },
+      ],
+    },
+    {
+      id: 'livestock-meat-fish',
+      title: 'Livestock, Meat & Fish',
+      tint: 'livestock',
+      items: [
+        { id: 'desi-chicken', name: 'Desi Chicken', icon: 'drumstick' },
+        { id: 'duck', name: 'Duck', icon: 'bird' },
+        { id: 'farm-eggs', name: 'Farm Eggs', icon: 'egg' },
+        { id: 'rohu-fish', name: 'Rohu Fish', icon: 'fish' },
+        { id: 'goat-meat', name: 'Goat Meat', icon: 'beef' },
+        { id: 'pork', name: 'Pork', icon: 'ham' },
+        { id: 'pigeon', name: 'Pigeon', icon: 'bird' },
+        { id: 'dry-fish', name: 'Dry Fish', icon: 'fish-symbol' },
+      ],
+    },
+    {
+      id: 'snacks-drinks',
+      title: 'Snacks & Drinks',
+      tint: 'snacks',
+      items: [
+        { id: 'chips-namkeen', name: 'Chips & Namkeen', icon: 'popcorn' },
+        { id: 'biscuits', name: 'Biscuits', icon: 'cookie' },
+        { id: 'cold-drinks', name: 'Cold Drinks', icon: 'cup-soda' },
+        { id: 'juices', name: 'Juices', icon: 'citrus' },
+        { id: 'tea-coffee', name: 'Tea & Coffee', icon: 'coffee' },
+        { id: 'mishti', name: 'Mishti', icon: 'cake-slice' },
+        { id: 'pitha', name: 'Pitha', icon: 'croissant' },
+        { id: 'ice-cream', name: 'Ice Cream', icon: 'ice-cream-cone' },
+      ],
+    },
+  ],
+};
