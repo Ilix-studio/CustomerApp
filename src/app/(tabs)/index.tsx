@@ -8,6 +8,7 @@ import { CategoryChips, CategoryChipsSkeleton } from '@/components/home/category
 import { CategoryRail, CategoryRailSkeleton } from '@/components/home/category-rail';
 import { FestiveBanner, FestiveBannerSkeleton } from '@/components/home/festive-banner';
 import { Header } from '@/components/home/header';
+import { PlanSmarter } from '@/components/home/plan-smarter';
 import { SearchBar } from '@/components/home/search-bar';
 import { ServiceGrid, ServiceGridSkeleton } from '@/components/home/service-grid';
 import { useFloatingBottomInset } from '@/components/navigation/floating-bottom-area';
@@ -91,6 +92,10 @@ function HomeSections({ feed }: { feed: HomeFeed }) {
         title="What do you need today?"
         services={feed.services}
         onSelect={(s) => openCategory(s.id)}
+      />
+      <PlanSmarter
+        onOpenDietPlanner={() => router.push('/plan/ai-diet-planner')}
+        onOpenPlan={(focus) => router.push({ pathname: '/plan', params: { focus } })}
       />
       {feed.rails.map((rail) => (
         <CategoryRail
