@@ -28,7 +28,7 @@ export function ProductTile({ product, tint, onPress }: ProductTileProps) {
         {showImage ? (
           <Image
             source={product.image}
-            contentFit="contain"
+            contentFit="cover"
             style={styles.image}
             onError={() => setImageFailed(true)}
             accessible={false}
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    width: '84%',
-    height: '84%',
+    width: '100%',
+    height: '100%',
   },
   label: {
     textAlign: 'center',

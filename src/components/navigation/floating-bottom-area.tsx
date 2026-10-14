@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { appConfig } from '@/config/app-config';
 import { space } from '@/constants/tokens';
+import { useAppSelector } from '@/store/hooks';
+import { selectTotalItems } from '@/store/slices/cart-slice';
 import { useAppState } from '@/state/app-state';
 
 import { BottomNav } from './bottom-nav';
@@ -20,7 +22,8 @@ export function useFloatingBottomInset() {
 export function FloatingBottomAreaProvider({ children }: { children: ReactNode }) {
   const insets = useSafeAreaInsets();
   const pathname = usePathname();
-  const { cartCount, deliveryBarDismissed, dismissDeliveryBar } = useAppState();
+  const { deliveryBarDismissed, dismissDeliveryBar } = useAppState();
+  const cartCount = useAppSelector(selectTotalItems);
   const [areaHeight, setAreaHeight] = useState(0);
 
   const bottomOffset = Math.max(insets.bottom, space.floatingMargin);

@@ -48,6 +48,23 @@ export const tileTints = {
 
 export type TileTintKey = keyof typeof tileTints;
 
+/** "Plan smarter" surfaces. Each one also carries a text tag, so colour is never the only signal. */
+export const planTints = {
+  ai: {
+    background: '#0F3B2C',
+    mark: 'rgba(191,232,207,0.16)',
+    mint: '#BFE8CF',
+    subtitle: '#E4EEE8',
+    border: '#0F3B2C',
+  },
+  plan: {
+    background: '#EEF4D6',
+    border: '#DBE6B5',
+    ink: '#4D5C10',
+    tagBackground: '#FFFFFF',
+  },
+} as const;
+
 /** Shadow for floating bars. RN 0.76+ supports the CSS `boxShadow` string on native and web. */
 export const shadows = {
   floating: '0 4px 18px rgba(20,30,20,0.12)',
@@ -128,6 +145,8 @@ export const sizes = {
   underlineHeight: 4,
   serviceIcon: 34,
   serviceCardMinHeight: 128,
+  planMark: 20,
+  planMarkBox: 40,
   navIcon: 24,
   deliveryIcon: 40,
   iconStroke: 1.8,
