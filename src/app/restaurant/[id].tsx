@@ -5,11 +5,11 @@ import { ScreenScroll } from '@/components/catalog/screen-scroll';
 import { AppText } from '@/components/ui/app-text';
 import { palette, radii, space } from '@/constants/tokens';
 import { formatCurrency } from '@/config/app-config';
-import { useGetRestaurantQuery } from '@/store/customer-api';
+import { useRestaurant } from '@/api/customer';
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data: r, isLoading } = useGetRestaurantQuery(id);
+  const { data: r, isLoading } = useRestaurant(id);
 
   if (isLoading) {
     return (

@@ -7,9 +7,9 @@ import { PrimaryButton } from '@/components/ui/primary-button';
 import { formatCurrency } from '@/config/app-config';
 import { palette, radii, space } from '@/constants/tokens';
 import { useCartDraft } from '@/hooks/use-cart-draft';
-import { useGetMyOrdersQuery, type OrderDto, type OrderStatus } from '@/store/customer-api';
+import { useMyOrders, type OrderDto, type OrderStatus } from '@/api/customer';
 import { useAppSelector } from '@/store/hooks';
-import { useGetProductsQuery } from '@/store/product-api';
+import { useProducts } from '@/api/products';
 import { selectIsAuthenticated } from '@/store/slices/auth-slice';
 
 /** Status is always spelled out, never colour alone. */
@@ -28,7 +28,7 @@ const POLL_MS = 20_000;
 
 function OrderCard({ order }: { order: OrderDto }) {
   const cart = useCartDraft();
-  const { data: products } = useGetProductsQuery();
+  const { data: products } = useProducts();
 
   /** Puts the order's items back in the cart, capped at what is in stock now. */
   function orderAgain() {
@@ -69,9 +69,9 @@ function OrderCard({ order }: { order: OrderDto }) {
 
 export default function OrderAgainScreen() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const { data: orders, isLoading, isError, refetch } = useGetMyOrdersQuery(undefined, {
-    skip: !isAuthenticated,
-    pollingInterval: POLL_MS,
+  const { data: orders, isLoading, isError, refetch } = useMyOrders({
+    enabled: isAuthenticated,
+    refetchInterval: POLL_MS,
   });
 
   return (
@@ -89,7 +89,7 @@ export default function OrderAgainScreen() {
       ) : isLoading ? (
         <ActivityIndicator color={palette.brand} />
       ) : isError || !orders ? (
-        <AppText variant="body" color="textMuted" onPress={refetch} accessibilityRole="button">
+        <AppText variant="body" color="textMuted" onPress={() => void refetch()} accessibilityRole="button">
           Couldn&apos;t load your orders. Tap to try again.
         </AppText>
       ) : orders.length === 0 ? (

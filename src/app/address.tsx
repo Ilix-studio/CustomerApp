@@ -7,7 +7,8 @@ import { AppText } from '@/components/ui/app-text';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { TextField } from '@/components/ui/text-field';
 import { palette, radii, space } from '@/constants/tokens';
-import { errorMessage, useAddAddressMutation, useGetAddressesQuery } from '@/store/customer-api';
+import { useAddAddress, useAddresses } from '@/api/customer';
+import { errorMessage } from '@/api/errors';
 import { useAppSelector } from '@/store/hooks';
 import { selectIsAuthenticated } from '@/store/slices/auth-slice';
 
@@ -15,8 +16,9 @@ const blank = { label: '', line1: '', city: '', state: '', pincode: '' };
 
 export default function AddressScreen() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const { data: addresses, isLoading } = useGetAddressesQuery(undefined, { skip: !isAuthenticated });
-  const [addAddress, { isLoading: saving }] = useAddAddressMutation();
+  const { data: addresses, isLoading } = useAddresses({ enabled: isAuthenticated });
+  const addAddress = useAddAddress();
+  const saving = addAddress.isPending;
   const [form, setForm] = useState(blank);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +41,7 @@ export default function AddressScreen() {
   async function save() {
     setError(null);
     try {
-      await addAddress(form).unwrap();
+      await addAddress.mutateAsync(form);
       setForm(blank);
     } catch (e) {
       setError(errorMessage(e, 'Could not save the address.'));

@@ -9,13 +9,13 @@ import { palette, radii, space } from '@/constants/tokens';
 import { formatCurrency } from '@/config/app-config';
 import { useCartDraft } from '@/hooks/use-cart-draft';
 import { useAppSelector } from '@/store/hooks';
-import { useGetProductsQuery } from '@/store/product-api';
+import { useProducts } from '@/api/products';
 import { selectIsAuthenticated } from '@/store/slices/auth-slice';
 
 export default function CartScreen() {
   const cart = useCartDraft();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const { data: products, isLoading } = useGetProductsQuery();
+  const { data: products, isLoading } = useProducts();
 
   const rows = Object.values(cart.lines).flatMap((line) => {
     const product = products?.find((p) => p.id === line.productId);

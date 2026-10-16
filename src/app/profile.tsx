@@ -6,15 +6,16 @@ import { ScreenScroll } from '@/components/catalog/screen-scroll';
 import { AppText } from '@/components/ui/app-text';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { TextField } from '@/components/ui/text-field';
-import { errorMessage, useUpdateProfileMutation } from '@/store/customer-api';
+import { useUpdateProfile } from '@/api/customer';
+import { errorMessage } from '@/api/errors';
+import { queryClient } from '@/api/query-client';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { apiSlice } from '@/store/api-slice';
 import { logout, selectCurrentCustomer, updateCustomer } from '@/store/slices/auth-slice';
 
 export default function ProfileScreen() {
   const dispatch = useAppDispatch();
   const customer = useAppSelector(selectCurrentCustomer);
-  const [update, { isLoading }] = useUpdateProfileMutation();
+  const update = useUpdateProfile();
   const [name, setName] = useState(customer?.name ?? '');
   const [area, setArea] = useState(customer?.area ?? '');
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
@@ -37,7 +38,7 @@ export default function ProfileScreen() {
   async function save() {
     setMessage(null);
     try {
-      const saved = await update({ name: name.trim(), area: area.trim() }).unwrap();
+      const saved = await update.mutateAsync({ name: name.trim(), area: area.trim() });
       dispatch(updateCustomer({ name: saved.name, area: saved.area }));
       setMessage({ text: 'Saved.', ok: true });
     } catch (e) {
@@ -46,9 +47,9 @@ export default function ProfileScreen() {
   }
 
   function signOut() {
+    // The store's sign-out listener also clears the query cache; do it here too so it is immediate.
     dispatch(logout());
-    // Drop everything cached for this customer so the next sign-in never sees it.
-    dispatch(apiSlice.util.resetApiState());
+    queryClient.clear();
   }
 
   return (
@@ -67,7 +68,7 @@ export default function ProfileScreen() {
           {message.text}
         </AppText>
       ) : null}
-      <PrimaryButton label="Save" onPress={save} loading={isLoading} />
+      <PrimaryButton label="Save" onPress={save} loading={update.isPending} />
 
       <View style={{ gap: 12 }}>
         <Link href="/address" asChild>

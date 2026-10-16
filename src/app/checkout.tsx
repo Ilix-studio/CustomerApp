@@ -8,14 +8,10 @@ import { PrimaryButton } from '@/components/ui/primary-button';
 import { formatCurrency } from '@/config/app-config';
 import { palette, radii, space } from '@/constants/tokens';
 import { useCartDraft } from '@/hooks/use-cart-draft';
-import {
-  errorMessage,
-  useCreateOrderMutation,
-  useGetAddressesQuery,
-  type PaymentMethod,
-} from '@/store/customer-api';
+import { useAddresses, useCreateOrder, type PaymentMethod } from '@/api/customer';
+import { errorMessage } from '@/api/errors';
+import { useProducts } from '@/api/products';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useGetProductsQuery } from '@/store/product-api';
 import { selectIsAuthenticated } from '@/store/slices/auth-slice';
 import { clearCart } from '@/store/slices/cart-slice';
 
@@ -47,9 +43,10 @@ export default function CheckoutScreen() {
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const cart = useCartDraft();
-  const { data: products } = useGetProductsQuery();
-  const { data: addresses, isLoading: loadingAddresses } = useGetAddressesQuery(undefined, { skip: !isAuthenticated });
-  const [createOrder, { isLoading: placing }] = useCreateOrderMutation();
+  const { data: products } = useProducts();
+  const { data: addresses, isLoading: loadingAddresses } = useAddresses({ enabled: isAuthenticated });
+  const createOrder = useCreateOrder();
+  const placing = createOrder.isPending;
 
   const [addressId, setAddressId] = useState<string | null>(null);
   const [payment, setPayment] = useState<PaymentMethod>('gpay');
@@ -71,11 +68,11 @@ export default function CheckoutScreen() {
     if (!chosen) return;
     setError(null);
     try {
-      await createOrder({
+      await createOrder.mutateAsync({
         addressId: chosen,
         paymentMethod: payment,
         items: lines.map((l) => ({ productId: l.productId, variantId: l.variantId, quantity: l.quantity })),
-      }).unwrap();
+      });
       dispatch(clearCart());
       router.replace('/order-again');
     } catch (e) {

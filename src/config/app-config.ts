@@ -9,7 +9,7 @@ export const appConfig = {
    * iOS simulator; use http://10.0.2.2:8080/api on the Android emulator and the machine's LAN IP
    * (http://192.168.x.x:8080/api) on a physical device.
    */
-  apiUrl: process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8080/api',
+  apiUrl: process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000/api',
   currencySymbol: '₹',
   locale: 'en-IN',
   /** PLACEHOLDER: free-delivery threshold should come from remote config. */

@@ -10,13 +10,13 @@ import { Icon } from '@/components/ui/icon';
 import { Tag } from '@/components/ui/tag';
 import { palette, radii, space } from '@/constants/tokens';
 import { CATEGORIES } from '@/data/catalog/categories';
-import { useGetRestaurantsQuery } from '@/store/customer-api';
+import { useRestaurants } from '@/api/customer';
 
 export default function CategoryScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const category = CATEGORIES.find((c) => c.slug === slug);
   const { data: restaurants, isLoading: loadingRestaurants, isError: restaurantsFailed, refetch } =
-    useGetRestaurantsQuery(undefined, { skip: slug !== 'food' });
+    useRestaurants({ enabled: slug === 'food' });
 
   if (!category) {
     return (
@@ -53,7 +53,7 @@ export default function CategoryScreen() {
         (loadingRestaurants ? (
           <ActivityIndicator color={palette.brand} />
         ) : restaurantsFailed || !restaurants ? (
-          <AppText variant="body" color="textMuted" onPress={refetch} accessibilityRole="button">
+          <AppText variant="body" color="textMuted" onPress={() => void refetch()} accessibilityRole="button">
             Couldn&apos;t load restaurants. Tap to try again.
           </AppText>
         ) : restaurants.length === 0 ? (

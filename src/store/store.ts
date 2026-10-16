@@ -1,5 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
+import { combineReducers, configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   FLUSH,
@@ -12,16 +11,25 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import { apiSlice } from './api-slice';
+import { queryClient } from '@/api/query-client';
+
 import { secureStorage } from './secure-storage';
-import authReducer from './slices/auth-slice';
+import authReducer, { logout } from './slices/auth-slice';
 import cartReducer from './slices/cart-slice';
 
-// Auth is persisted in secure storage, the cart in AsyncStorage. The API cache is never persisted.
+// Auth is persisted in secure storage, the cart in AsyncStorage. Server data lives in TanStack Query, never here.
 const rootReducer = combineReducers({
   auth: persistReducer({ key: 'auth', version: 1, storage: secureStorage }, authReducer),
   cart: persistReducer({ key: 'cart', version: 1, storage: AsyncStorage }, cartReducer),
-  [apiSlice.reducerPath]: apiSlice.reducer,
+});
+
+// Signing out (or an expired token) forgets everything cached for this customer.
+const signOutListener = createListenerMiddleware();
+signOutListener.startListening({
+  actionCreator: logout,
+  effect: () => {
+    queryClient.clear();
+  },
 });
 
 export const store = configureStore({
@@ -29,12 +37,10 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: { ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] },
-    }).concat(apiSlice.middleware),
+    }).prepend(signOutListener.middleware),
 });
 
 export const persistor = persistStore(store);
-
-setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

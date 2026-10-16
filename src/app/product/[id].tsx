@@ -5,11 +5,11 @@ import { ProductCard } from '@/components/catalog/product-card';
 import { ScreenScroll } from '@/components/catalog/screen-scroll';
 import { AppText } from '@/components/ui/app-text';
 import { palette } from '@/constants/tokens';
-import { useGetProductsQuery } from '@/store/product-api';
+import { useProducts } from '@/api/products';
 
 export default function ProductScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading } = useProducts();
   const product = data?.find((p) => p.id === id);
 
   return (
