@@ -20,7 +20,8 @@ export default function CategoriesScreen() {
           onPress={() => router.push({ pathname: '/category/[slug]', params: { slug: c.slug } })}
           accessibilityRole="button"
           accessibilityLabel={c.title}
-          style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
+          className="active:opacity-85"
+          style={styles.card}>
           <Image source={c.image} contentFit="cover" style={styles.image} accessible={false} />
           <View style={styles.body}>
             <View style={styles.icon}>
@@ -41,7 +42,6 @@ export default function CategoriesScreen() {
 
 const styles = StyleSheet.create({
   card: { backgroundColor: palette.surface, borderRadius: radii.card, borderWidth: 1, borderColor: palette.border, overflow: 'hidden' },
-  pressed: { opacity: 0.85 },
   image: { height: 110, width: '100%' },
   body: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.md },
   icon: { width: 40, height: 40, borderRadius: radii.full, backgroundColor: palette.brandTint, alignItems: 'center', justifyContent: 'center' },

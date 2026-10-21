@@ -29,7 +29,8 @@ export function CategoryChips({ chips, selectedId, onSelect }: CategoryChipsProp
             accessibilityRole="tab"
             accessibilityState={{ selected }}
             accessibilityLabel={chip.badge ? `${chip.label}, ${chip.badge}` : chip.label}
-            style={({ pressed }) => [styles.chip, pressed && styles.pressed]}>
+            className="active:opacity-70"
+            style={styles.chip}>
             <View>
               <Icon name={chip.icon} size={sizes.chipIcon} color={color} />
               {chip.badge ? (
@@ -97,8 +98,5 @@ const styles = StyleSheet.create({
   },
   underlineSelected: {
     backgroundColor: palette.accent,
-  },
-  pressed: {
-    opacity: 0.7,
   },
 });

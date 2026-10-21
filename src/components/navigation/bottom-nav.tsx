@@ -49,7 +49,8 @@ function NavItem({ label, icon, badgeCount, isFocused, ...pressableProps }: NavI
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
       accessibilityLabel={a11yLabel}
-      style={({ pressed }) => [styles.item, isFocused && styles.itemActive, pressed && styles.pressed]}>
+      className="active:opacity-70"
+      style={[styles.item, isFocused && styles.itemActive]}>
       <View>
         <Icon name={icon} size={sizes.navIcon} color={color} />
         {badgeCount > 0 ? (
@@ -99,8 +100,5 @@ const styles = StyleSheet.create({
     backgroundColor: palette.badge,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.7,
   },
 });

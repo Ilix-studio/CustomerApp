@@ -25,11 +25,8 @@ export function PrimaryButton({
       accessibilityState={{ disabled: inactive, busy: loading }}
       disabled={inactive}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.base,
-        solid ? styles.solid : styles.outline,
-        { opacity: inactive ? 0.5 : pressed ? 0.85 : 1 },
-      ]}>
+      className="active:opacity-85"
+      style={[styles.base, solid ? styles.solid : styles.outline, inactive && { opacity: 0.5 }]}>
       {loading ? (
         <ActivityIndicator color={solid ? palette.onBrand : palette.brand} />
       ) : (

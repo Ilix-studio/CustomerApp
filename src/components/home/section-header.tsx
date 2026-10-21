@@ -20,7 +20,8 @@ export function SectionHeader({ title, onSeeAll }: SectionHeaderProps) {
           onPress={onSeeAll}
           accessibilityRole="link"
           accessibilityLabel={`See all ${title}`}
-          style={({ pressed }) => [styles.seeAll, pressed && styles.pressed]}>
+          className="active:opacity-60"
+          style={styles.seeAll}>
           <AppText variant="link" color="brand">
             See all
           </AppText>
@@ -52,8 +53,5 @@ const styles = StyleSheet.create({
     minHeight: sizes.touch,
     paddingLeft: 12,
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.6,
   },
 });

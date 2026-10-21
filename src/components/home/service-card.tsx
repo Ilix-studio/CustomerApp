@@ -18,11 +18,8 @@ export function ServiceCard({ service, onPress }: ServiceCardProps) {
       onPress={() => onPress(service)}
       accessibilityRole="link"
       accessibilityLabel={`${service.title}. ${service.subtitle}`}
-      style={({ pressed }) => [
-        styles.card,
-        { backgroundColor: tint.background },
-        pressed && styles.pressed,
-      ]}>
+      className="active:opacity-85"
+      style={[styles.card, { backgroundColor: tint.background }]}>
       <Icon name={service.icon} size={sizes.serviceIcon} color={tint.title} />
       <View style={styles.copy}>
         <AppText variant="cardTitle" color={tint.title}>
@@ -47,8 +44,5 @@ const styles = StyleSheet.create({
   },
   copy: {
     gap: space.xs,
-  },
-  pressed: {
-    opacity: 0.85,
   },
 });

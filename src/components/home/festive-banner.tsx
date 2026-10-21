@@ -28,7 +28,8 @@ export function FestiveBanner({ banner, onPress }: FestiveBannerProps) {
         onPress={() => onPress(banner)}
         accessibilityRole="button"
         accessibilityLabel={`${banner.ctaLabel}: ${banner.title}`}
-        style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
+        className="active:opacity-80"
+        style={styles.cta}>
         <AppText variant="button" color="onBrand">
           {banner.ctaLabel}
         </AppText>
@@ -61,8 +62,5 @@ const styles = StyleSheet.create({
     backgroundColor: palette.accentInk,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.8,
   },
 });

@@ -23,7 +23,8 @@ export function ProductTile({ product, tint, onPress }: ProductTileProps) {
       onPress={() => onPress(product)}
       accessibilityRole="button"
       accessibilityLabel={product.name}
-      style={({ pressed }) => [styles.tile, pressed && styles.pressed]}>
+      className="active:opacity-75"
+      style={styles.tile}>
       <View style={[styles.imageBox, { backgroundColor: tint.background }]}>
         {showImage ? (
           <Image
@@ -73,8 +74,5 @@ const styles = StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-  },
-  pressed: {
-    opacity: 0.75,
   },
 });

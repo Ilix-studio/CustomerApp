@@ -1,3 +1,5 @@
+import '@/global.css';
+
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,

@@ -28,7 +28,8 @@ export function PlanSmarter({ onOpenDietPlanner, onOpenPlan }: PlanSmarterProps)
         onPress={onOpenDietPlanner}
         accessibilityRole="link"
         accessibilityLabel="AI Diet Planner. Upload a diet plan, get a ready-to-order list"
-        style={({ pressed }) => [styles.ai, pressed && styles.pressed]}>
+        className="active:opacity-85"
+        style={styles.ai}>
         <View style={styles.aiMark}>
           <Icon name="sparkles" size={sizes.planMark} color={planTints.ai.mint} />
         </View>
@@ -53,7 +54,8 @@ export function PlanSmarter({ onOpenDietPlanner, onOpenPlan }: PlanSmarterProps)
             onPress={() => onOpenPlan(tile.focus)}
             accessibilityRole="link"
             accessibilityLabel={`${tile.title}. Plan`}
-            style={({ pressed }) => [styles.plan, pressed && styles.pressed]}>
+            className="active:opacity-85"
+            style={styles.plan}>
             <View style={styles.planTop}>
               <Icon name={tile.icon} size={sizes.planMark} color={planTints.plan.ink} />
               <Tag tone="plan" label="PLAN" />
@@ -115,8 +117,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  pressed: {
-    opacity: 0.85,
   },
 });

@@ -133,7 +133,8 @@ function HomeError({ onRetry }: { onRetry: () => void }) {
       <Pressable
         onPress={onRetry}
         accessibilityRole="button"
-        style={({ pressed }) => [styles.retry, pressed && { opacity: 0.7 }]}>
+        className="active:opacity-70"
+        style={styles.retry}>
         <AppText variant="button" color="onBrand">
           Try again
         </AppText>

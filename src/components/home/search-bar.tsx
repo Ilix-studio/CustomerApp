@@ -48,7 +48,8 @@ export function SearchBar({ hints, value, onChangeText, onSubmit, onVoicePress }
         accessibilityRole="button"
         accessibilityLabel="Search by voice"
         hitSlop={4}
-        style={({ pressed }) => [styles.mic, pressed && styles.pressed]}>
+        className="active:opacity-60"
+        style={styles.mic}>
         <Icon name="mic" size={20} color="brand" />
       </Pressable>
     </View>
@@ -83,8 +84,5 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.6,
   },
 });

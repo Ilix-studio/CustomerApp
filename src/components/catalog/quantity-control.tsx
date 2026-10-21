@@ -32,7 +32,8 @@ export function QuantityControl({ quantity, max, label, onIncrement, onDecrement
         onPress={onIncrement}
         accessibilityRole="button"
         accessibilityLabel={`Add ${label}`}
-        style={({ pressed }) => [styles.add, pressed && styles.pressed]}>
+        className="active:opacity-85"
+        style={styles.add}>
         <Icon name="plus" size={16} color="onBrand" />
         <AppText variant="button" color="onBrand">
           Add
@@ -78,7 +79,6 @@ const styles = StyleSheet.create({
     gap: space.xs,
   },
   disabled: { backgroundColor: palette.border },
-  pressed: { opacity: 0.85 },
   stepper: {
     minHeight: sizes.touch,
     borderRadius: radii.search,

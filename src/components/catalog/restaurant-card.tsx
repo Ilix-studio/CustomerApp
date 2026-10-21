@@ -16,7 +16,8 @@ export function RestaurantCard({ restaurant: r }: { restaurant: Restaurant }) {
       onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: r.id } })}
       accessibilityRole="button"
       accessibilityLabel={`${r.name}${r.isOpen ? '' : ', closed now'}`}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
+      className="active:opacity-85"
+      style={styles.card}>
       <View style={[styles.media, !r.isOpen && styles.shut]}>
         <Image source={r.image} contentFit="cover" style={styles.image} accessible={false} />
         {!r.isOpen && (
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     padding: space.md,
     gap: space.sm,
   },
-  pressed: { opacity: 0.85 },
   media: { aspectRatio: 2, borderRadius: radii.tile, overflow: 'hidden', backgroundColor: palette.brandTint },
   shut: { opacity: 0.55 },
   image: { width: '100%', height: '100%' },

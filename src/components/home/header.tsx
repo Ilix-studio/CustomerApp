@@ -39,7 +39,8 @@ export function Header({
           accessibilityRole="button"
           accessibilityLabel={`Delivery location: ${addressText}`}
           accessibilityHint="Opens address picker"
-          style={({ pressed }) => [styles.location, pressed && styles.pressed]}>
+          className="active:opacity-75"
+          style={styles.location}>
           <Icon name="map-pin" size={18} color="onBrand" />
           <AppText variant="body" color="onBrand" numberOfLines={1} style={styles.locationText}>
             {addressText}
@@ -53,7 +54,8 @@ export function Header({
           onPress={onWalletPress}
           accessibilityRole="button"
           accessibilityLabel={`Wallet, balance ${balance}`}
-          style={({ pressed }) => [styles.walletButton, pressed && styles.pressed]}>
+          className="active:opacity-75"
+          style={styles.walletButton}>
           <Icon name="wallet" size={22} color="onBrand" />
           <View style={styles.balancePill}>
             <AppText variant="pill" color="onBrand" numberOfLines={1}>
@@ -65,7 +67,8 @@ export function Header({
           onPress={onProfilePress}
           accessibilityRole="button"
           accessibilityLabel="Profile"
-          style={({ pressed }) => [styles.profileButton, pressed && styles.pressed]}>
+          className="active:opacity-75"
+          style={styles.profileButton}>
           <Icon name="user" size={22} color="brand" />
         </Pressable>
       </View>
@@ -127,8 +130,5 @@ const styles = StyleSheet.create({
     backgroundColor: palette.surface,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.75,
   },
 });

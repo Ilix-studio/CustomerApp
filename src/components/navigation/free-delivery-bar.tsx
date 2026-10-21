@@ -26,7 +26,8 @@ export function FreeDeliveryBar({ threshold, onDismiss }: FreeDeliveryBarProps) 
         onPress={onDismiss}
         accessibilityRole="button"
         accessibilityLabel="Dismiss free delivery offer"
-        style={({ pressed }) => [styles.dismiss, pressed && styles.pressed]}>
+        className="active:opacity-60"
+        style={styles.dismiss}>
         <Icon name="x" size={18} color="textMuted" />
       </Pressable>
     </View>
@@ -64,8 +65,5 @@ const styles = StyleSheet.create({
     borderColor: palette.border,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pressed: {
-    opacity: 0.6,
   },
 });
